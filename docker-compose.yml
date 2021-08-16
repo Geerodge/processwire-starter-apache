@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  php:
+      build:
+          context: .
+          dockerfile: ./php/Dockerfile
+      ports:
+        - 80:80
+      volumes:
+          - ./app:/app
+      
+  mysql:
+      image: mariadb:latest
+      environment:
+          MYSQL_ROOT_PASSWORD: 'password' 
+          MYSQL_USER: 'wearerebase'
+          MYSQL_PASSWORD: 'password'
+          MYSQL_DATABASE: 'wearerebase'
+      volumes:
+          - mysqldata:/var/lib/mysql
+      ports:
+          - 3306:3306
+volumes:
+    mysqldata: {}
