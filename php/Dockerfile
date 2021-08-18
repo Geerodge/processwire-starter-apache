@@ -37,5 +37,3 @@ RUN rm -rf /var/www/html/*
 COPY --chown=www-data:www-data app/ /var/www/html
 
 RUN cd /var/www/html/site && yarn && yarn build
-
-VOLUME /var/www/html
