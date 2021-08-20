@@ -1,7 +1,6 @@
 FROM php:7.4-apache
-WORKDIR /app
 
-# install dependencies
+# Install php dependencies
 RUN apt-get update && apt-get install -y curl \
     imagemagick libmagickwand-dev --no-install-recommends \
     libzip-dev \
@@ -17,7 +16,7 @@ RUN apt-get update && apt-get install -y curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
-# install nodejs and yarn
+# Install nodejs and yarn
 RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y \
     nodejs
@@ -30,10 +29,12 @@ RUN a2enmod rewrite
 EXPOSE 80
 EXPOSE 443
 
-# Remove all default site files in /var/www/html
-RUN rm -rf /var/www/html/*
+WORKDIR /var/www/html/site/
 
 # Copy app folder files
-COPY --chown=www-data:www-data app/ /var/www/html
+COPY --chown=www-data:www-data /app /var/www/html
 
-RUN cd /var/www/html/site && yarn && yarn build
+# Install npm/yarn packages
+RUN yarn && yarn build
+
+## Run yarn && yarn build && yarn watch locally in app/site
