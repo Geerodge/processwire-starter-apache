@@ -29,3 +29,5 @@ I run this all in vscode with the [Docker Remote](https://github.com/Microsoft/v
 * When starting the docker container for the first time the mysql settings (database name, user, pass) from docker-compose.yml will be loaded and are annoyingly persistent. Remember to use the command "docker-compose down -v" in terminal, even after closing in vscode when changing these and not being able to connect.
 
 * When connecting to database from within the container, do not use localhost or 127.0.0.1. Use mysql (the service name), especially useful on the /install.php script for processwire.
+
+* Run yarn && yarn build && yarn watch locally in app/site after site buiild.
